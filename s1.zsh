@@ -6,32 +6,6 @@ chmod +x ~/learn-install/s6.zsh
 chmod +x ~/learn-install/s7.zsh
 chmod +x ~/learn-install/s8.zsh
 
-chsh -s $(which zsh)
-
-mkdir $HOME/work && touch $HOME/.zshrc &&
-
-xcode-select --install
-
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &&
-
-(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/$USER/.zprofile &&
-
-eval "$(/opt/homebrew/bin/brew shellenv)" &&
-
-echo 'export PATH="/opt/homebrew/bin:$PATH"' >> ~/.zshrc &&
-
-source ~/.zshrc
-
-if [ $? -eq 0 ]; then
-
-  installJDK &
-  setupPostgres &
-
-  wait
-else
-  echo "Some of the scripts are failing."
-fi
-
 installJDK() {
   try {
     sudo rm -rf /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk /usr/local/Caskroom/corretto
@@ -79,3 +53,28 @@ setupPostgres() {
     return 1
   }
 }
+
+start() {
+  try {
+    chsh -s $(which zsh)
+    mkdir $HOME/work && touch $HOME/.zshrc &&
+    xcode-select --install
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" &&
+    (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/$USER/.zprofile &&
+    eval "$(/opt/homebrew/bin/brew shellenv)" &&
+    echo 'export PATH="/opt/homebrew/bin:$PATH"' >> ~/.zshrc &&
+    source ~/.zshrc
+  } catch {
+    echo "Error: Failed to install homebrew" >> ~/install.log
+    return 1
+  }
+}
+
+
+start
+if [ $? -eq 0 ]; then
+  installJDK
+  setupPostgres
+else
+  echo "Error: Failed to start" >> ~/install.log
+fi
