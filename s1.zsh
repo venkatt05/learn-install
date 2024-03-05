@@ -14,7 +14,7 @@ read -s password
 echo "Enter your GitHubEmail: "
 read  $userEmail
 
-echo "Enter your GitHubEmail: "
+echo "Enter your computer_name: "
 read  $computer_name
 
 error() {
@@ -53,7 +53,7 @@ echo -e "\e[33m# Install PostgreSQL 12\e[0m"
 
   echo -e "\e[33m# Tap homebrew/services and homebrew/core\e[0m"
   brew tap homebrew/services
-  brew tap homebrew/core
+  # brew tap homebrew/core // Removing this as it is no longer needed on Homebrew 2.0.0 
 
   echo -e "\e[33m# Source .zshrc to apply changes\e[0m"
   source ~/.zshrc

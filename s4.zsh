@@ -1,34 +1,45 @@
 #!/usr/bin/env zsh
+echo "Enter your userEmail: "
+read userEmail
 
-userEmail="$1"
+echo "Enter your userName: "
+read userName
 
-userName="$2"
+echo "Enter your password: "
+read -s password
 
+# Source the zshrc file
 source ~/.zshrc
 
+# Install or upgrade Git and Git LFS
+echo -e "\e[33mInstalling or upgrading Git and Git LFS\e[0m"
 brew install git || brew upgrade git &&
-
 brew install git-lfs || brew upgrade git-lfs &&
 
+# Install Git LFS
+echo -e "\e[33mInstalling Git LFS\e[0m"
 git lfs install &&
 
+# Configure Git
+echo -e "\e[33mConfiguring Git\e[0m"
 git config --global merge.renamelimit 999999 &&
-
 git config --global diff.renamelimit 999999 &&
-
 git config --global "lfs.https://stash.bbpd.io/learn/learn.git/info/lfs.locksverify" false &&
-
 git config --global "lfs.contenttype" false &&
 
+# Configure Git user
+echo -e "\e[33mConfiguring Git user\e[0m"
 # read "?Enter your fullname (FirstName LastName) : " firstName &&
-
 git config --global user.name "$userName"
-
 git config --global user.email "$userEmail"
 
-echo "kern.maxfiles=65536
-kern.maxfilesperproc=65536" | sudo tee /etc/sysctl.conf &&
+# Configure system settings
+echo -e "\e[33mConfiguring system settings\e[0m"
+echo "$password" | sudo -S sh -c 'echo "kern.maxfiles=65536
+kern.maxfilesperproc=65536" > /etc/sysctl.conf' &&
 
+# Configure LaunchDaemons
+echo -e "\e[33mConfiguring LaunchDaemons\e[0m"
 echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
@@ -69,24 +80,29 @@ echo '<!DOCTYPE plist PUBLIC "-//Apple/DTD PLIST 1.0//EN" "http://www.apple.com/
   </dict>
 </plist>' | sudo tee /Library/LaunchDaemons/limit.maxproc.plist &&
 
-if [ $(ls -al $HOME/.ssh) > 0 ]
-then
-  echo "SSH key already present. Add to your github account(https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) and then configure the SSH. Once done proceed with next steps."
-else
-  ssh-keygen -t ed25519 -C "$userEmail" &&
+# Check if SSH key is present
+echo -e "\e[33mChecking SSH key\e[0m"
+if [  ! -f ~/.ssh/id_ed25519 ]; then
 
+  ssh-keygen -t ed25519 -C "$userEmail" -N "" -f ~/.ssh/id_ed25519
+
+  # Start SSH agent
   eval "$(ssh-agent -s)" &&
 
+  # Configure SSH
   touch $HOME/.ssh/config &&
-
-  echo 'Host github.com
+  echo -e 'Host github.com
   \nAddKeysToAgent yes
   \nUseKeychain yes
   \nIdentityFile ~/.ssh/id_ed25519' >> $HOME/.ssh/config &&
 
+  # Add SSH key to agent
   ssh-add --apple-use-keychain $HOME/.ssh/id_ed25519 &&
 
-  echo "Your public SSH key : $(cat id_ed25519.pub)" &&
+  echo -e "\e[33mYour public SSH key Highlighted in Green Colour:\e[0m" &&
+  echo -e "\e[32m$(cat ~/.ssh/id_ed25519.pub)\e[0m"
+  echo -e "\e[33mAdd the above Public SSH to your github account and configure it. Refer : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with next steps once done.\e[0m"
+ else
+  echo "SSH key already present. Add to your github account(https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) and then configure the SSH. Once done proceed with next steps."
 
-  echo "Add the above Public SSH to your github account and configure it. Refer : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with next steps once done."
 fi

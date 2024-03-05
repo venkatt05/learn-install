@@ -54,3 +54,18 @@ Step 8 (Setting up scalar certs)
 
 Step 9
 install docker desktop from - https://www.docker.com/products/docker-desktop/
+
+
+General Notes on Uninstallation :
+
+<!-- To uninstall postgres -->
+ sudo rm -rf /Library/PostgreSQL"
+
+ <!-- How to fix the below errror : -->
+ Not able to start postgres @12 using brew command "brew services start postgresql@12"
+Got the below error 
+"Error: Failure while executing; `/bin/launchctl bootstrap system /Library/LaunchDaemons/homebrew.mxcl.postgresql@12.plist` exited with 5. "
+
+sudo chown -R $(whoami) /usr/local/var/postgresql@12
+brew services stop postgresql@12
+brew services start postgresql@12
