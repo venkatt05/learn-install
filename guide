@@ -52,8 +52,10 @@ Step 8 (Setting up scalar certs)
 4. run "export NODE_EXTRA_CA_CERTS=~/work/zscaler-certs/ZscalerRootCA.pem"
 
 
-Step 9
-install docker desktop from - https://www.docker.com/products/docker-desktop/
+
+<!-- Note: Docker installation is not required, we can run Ultra-router natively using "./start" -->
+<!-- Step 9
+install docker desktop from - https://www.docker.com/products/docker-desktop/ -->
 
 
 General Notes on Uninstallation :
