@@ -25,13 +25,10 @@ chmod +x ~/learn-install/v2/pre.zsh
 ```
 
 ### Step 3 :
-To add you ssh key to your github account, follow the below points -
-1. run the command - "pbcopy < ~/.ssh/id_ed25519.pub".
-2. Go to your github account > settings > SSH and GPG keys.
-3. click on "New SSH Key".
-4. Type a title for the ssh. ex: anthology-ssh.
-5. press "command + v" to paste the SSH into the value box.
-6. once the key is added, click on "configure sso" button and authorize all the projects.
+To add your ssh key to your github account, follow the below points -
+1. Type a title for the ssh. ex: anthology-ssh.
+2. Press "command + v" to paste the SSH into the value box.
+3. Once the key is added, click on "configure sso" button and authorize all the projects.
 
 ### Step 4 :
 **Note:**
