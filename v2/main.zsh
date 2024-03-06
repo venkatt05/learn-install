@@ -6,6 +6,9 @@ read -s password
 echo "Enter your email (Anthology email): "
 read userEmail
 
+echo "Enter your user name that will be used/configured with you local Git : "
+read userName
+
 computer_name=$(scutil --get ComputerName)
 
 error() {
@@ -96,7 +99,7 @@ start() {
   echo "$USER ALL=(ALL) NOPASSWD: /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\"" | sudo EDITOR="tee -a" visudo
 
   echo -e "\e[33m# Install Homebrew with the specified username and password\e[0m"
-  echo | /bin/bash -c "$(curl -fsSLu sthoomati:$password https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  echo | /bin/bash -c "$(curl -fsSLu $userName:$password https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
   echo -e "\e[33m# Add Homebrew shell initialization to .zprofile\e[0m"
   (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/$USER/.zprofile
@@ -112,9 +115,7 @@ start() {
 }
 
 setupGit() {
-    echo "Enter your user name that will be used/configured with you local Git : "
-    read userName
-
+    local userName="$1"
     # Source the zshrc file
     source ~/.zshrc
 
@@ -334,10 +335,11 @@ setupZScalar() {
 
 start || error "Failed to install homebrew"
 
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ];
+then
   install_corretto || { error "Error: Failed to install JDK or set JAVA_HOME."; exit 1; }
   setupPostgres || { error "Error: Failed to setup Postgres."; exit 1; }
-  setupGit || { error "Error: Failed to setup Git."; exit 1; }
+  setupGit "$userName"|| { error "Error: Failed to setup Git."; exit 1; }
   cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
   setupZScalar || { error "Error: Failed to setup ZScalar."; exit 1; }
 else

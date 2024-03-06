@@ -101,7 +101,11 @@ if [  ! -f ~/.ssh/id_ed25519 ]; then
 
   echo -e "\e[33mYour public SSH key Highlighted in Green Colour:\e[0m" &&
   echo -e "\e[32m$(cat ~/.ssh/id_ed25519.pub)\e[0m"
-  echo -e "\e[33mAdd the above Public SSH to your github account and configure it. Refer : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with next steps once done.\e[0m"
+  echo -e "\e[1;31mAdd the above Public SSH to your github account and configure it.
+  you can see there is a URL opened in your default browser. Add the SSH key to your github account and then once the key is added, click on "configure sso" button and authorize all the projects..
+  For more details Refer : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with next steps once done.\e[0m""
+  pbcopy < ~/.ssh/id_ed25519.pub
+  open "https://github.com/settings/ssh/new"
  else
   echo "SSH key already present. Add to your github account(https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) and then configure the SSH. Once done proceed with next steps."
 
