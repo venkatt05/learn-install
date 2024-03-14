@@ -24,7 +24,7 @@ if [  ! -f ~/.ssh/id_ed25519 ]; then
   # Add SSH key to agent
   ssh-add --apple-use-keychain $HOME/.ssh/id_ed25519 &&
 
-  echo -e "\e[33mYour public SSH key Highlighted in Green Colour:\e[0m" &&
+  echo -e "\e[33mYour public SSH key Highlighted in Green Colour and is already copied:\e[0m" &&
   echo -e "\e[32m$(cat ~/.ssh/id_ed25519.pub)\e[0m"
   echo "\n"
   echo -e "\e[33m*******************  Read the Below Notes Carefully*********************\e[0m

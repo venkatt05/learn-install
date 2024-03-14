@@ -61,7 +61,7 @@ installPostgres() {
 
 createUserAndChangePassword() {
   echo -e "\e[33m# Create superuser and createuser roles in PostgreSQL\e[0m"
-  PGPASSWORD=postgres createuser -s -r postgres
+  createuser -s -r postgres
 
   echo -e "\e[33m# Set password for the 'postgres' user in PostgreSQL\e[0m"
   psql -U postgres -c "alter user postgres PASSWORD 'postgres'"
