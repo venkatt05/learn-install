@@ -337,11 +337,11 @@ start || error "Failed to install homebrew"
 
 if [ $? -eq 0 ];
 then
+  setupZScalar || { error "Error: Failed to setup ZScalar."; exit 1; }
   install_corretto || { error "Error: Failed to install JDK or set JAVA_HOME."; exit 1; }
   setupPostgres || { error "Error: Failed to setup Postgres."; exit 1; }
   setupGit "$userName"|| { error "Error: Failed to setup Git."; exit 1; }
   cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
-  setupZScalar || { error "Error: Failed to setup ZScalar."; exit 1; }
 else
   error "Error: Failed to start"
 fi
