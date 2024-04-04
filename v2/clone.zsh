@@ -10,7 +10,6 @@ echo "Enter your user name that will be used/configured with you local Git : "
 read userName
 
 computer_name=$(scutil --get ComputerName)
-
 # The default behavior of sudo is to cache the authentication for a certain amount of time (usually 5 minutes) 
 # The sudo authentication will be refreshed at the beginning of the script
 echo $password |  sudo -v
@@ -205,7 +204,7 @@ cloneLearn() {
   
   cd $HOME/work &&
 
-  caffeinate git clone git@github.com:blackboard-learn/learn.git &&
+  yes | caffeinate git clone git@github.com:blackboard-learn/learn.git &&
 
   git clone git@github.com:blackboard-learn/learn.util.git &&
 
@@ -264,6 +263,10 @@ cloneLearn() {
 }
 
 cloneUltra() {
+
+# The sudo authentication will be refreshed because the connection might be dropped 
+echo $password |  sudo -v
+
   
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash &&
 
@@ -315,6 +318,9 @@ cloneUltra() {
 }
 
 cloneUltraRouter() {
+# The sudo authentication will be refreshed because the connection might be dropped 
+echo $password |  sudo -v
+
   cd $HOME/work &&
   echo -e "\e[33mStarted cloning Ultra-router\e[0m"
   git clone git@github.com:blackboard-learn/ultra-router.git
