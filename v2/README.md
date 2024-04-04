@@ -38,6 +38,12 @@ To add your ssh key to your github account, follow the below points -
 ~/learn-install/v2/main.zsh
 ```
 
+### Step 5 :
+**Note:**
+```bash
+~/learn-install/v2/clone.zsh
+```
+
 ## General notes on uninstallation :
 To uninstall postgres
 
