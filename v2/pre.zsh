@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 chmod +x ~/learn-install/v2/main.zsh
+chmod +x ~/learn-install/v2/clone.zsh
 
 userEmail="$1"
 
