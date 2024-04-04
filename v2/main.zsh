@@ -341,8 +341,8 @@ cloneProjects() {
 
 setupZScalar() {
   cp -R ~/learn-install/zscaler-certs ~/work/zscaler-certs &&
-  echo "When asked for key password enter "changeit" and then enter" &&
-  sudo keytool -import -trustcacerts -alias zscaler_root_ca -file ~/work/zscaler-certs/ZscalerRootCA.cer -cacerts &&
+  password="changeit"
+  echo $password | sudo keytool -import -trustcacerts -alias zscaler_root_ca -file ~/work/zscaler-certs/ZscalerRootCA.cer -cacerts <<< "yes" &&
   export NODE_EXTRA_CA_CERTS=~/work/zscaler-certs/ZscalerRootCA.pem
 }
 
@@ -353,8 +353,8 @@ then
   setupZScalar || { error "Error: Failed to setup ZScalar."; exit 1; }
   install_corretto || { error "Error: Failed to install JDK or set JAVA_HOME."; exit 1; }
   setupPostgres || { error "Error: Failed to setup Postgres."; exit 1; }
-  setupGit "$userName"|| { error "Error: Failed to setup Git."; exit 1; }
-  cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
+  # setupGit "$userName"|| { error "Error: Failed to setup Git."; exit 1; }
+  # cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
 else
   error "Error: Failed to start"
 fi
