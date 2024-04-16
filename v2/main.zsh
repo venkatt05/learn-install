@@ -204,9 +204,15 @@ addHosts() {
 
 cloneLearn() {
   
+  # The sudo authentication will be refreshed at the beginning of the script
+  echo $password |  sudo -v
+
   cd $HOME/work &&
 
-  caffeinate git clone git@github.com:blackboard-learn/learn.git &&
+  yes | caffeinate git clone git@github.com:blackboard-learn/learn.git &&
+
+  # The sudo authentication will be refreshed at the beginning of the script
+  echo $password |  sudo -v
 
   git clone git@github.com:blackboard-learn/learn.util.git &&
 
@@ -265,6 +271,9 @@ cloneLearn() {
 }
 
 cloneUltra() {
+
+    # The sudo authentication will be refreshed at the beginning of the script
+  echo $password |  sudo -v
   
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash &&
 
@@ -304,6 +313,9 @@ cloneUltra() {
 
   cd $HOME/work &&
 
+  # The sudo authentication will be refreshed at the beginning of the script
+  echo $password |  sudo -v
+  
   git clone git@github.com:blackboard-learn/ultra.git &&
 
   cd ultra &&
@@ -318,6 +330,10 @@ cloneUltra() {
 cloneUltraRouter() {
   cd $HOME/work &&
   echo -e "\e[33mStarted cloning Ultra-router\e[0m"
+
+  # The sudo authentication will be refreshed at the beginning of the script
+  echo $password |  sudo -v
+
   git clone git@github.com:blackboard-learn/ultra-router.git
 
   echo -e "\e[33mInstalling openresty\e[0m"
