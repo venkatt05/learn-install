@@ -18,6 +18,7 @@ echo $password |  sudo -v
 error() {
   local input_message="$1"
   echo -e "\e[31mError: $input_message\e[0m" >> ~/install.log
+  tail -10f ~/install.log && exit
   return 1
 }
 
