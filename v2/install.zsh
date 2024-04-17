@@ -32,7 +32,7 @@ install_ultra() {
         cd ultra-router &&
         ./start 
     fi
-    cd ~/apps/ultra-ui &&
+    cd $HOME/work/ultra/apps/ultra-ui &&
     yarn start
   fi
 }

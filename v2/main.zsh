@@ -1,7 +1,9 @@
 #!/usr/bin/env zsh
-password  = $1
-userEmail = $2
-userName  = $3
+
+password=$1
+userEmail=$2
+userName=$3
+
 computer_name=$(scutil --get ComputerName)
 
 # The default behavior of sudo is to cache the authentication for a certain amount of time (usually 5 minutes) 
@@ -93,8 +95,8 @@ start() {
   echo -e "\e[33m# Install Xcode command line tools\e[0m"
   xcode-select --install
 
-  echo -e "\e[33m# Allow the specified user to run Homebrew install without a password\e[0m"
-  echo "$USER ALL=(ALL) NOPASSWD: /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\"" | sudo EDITOR="tee -a" visudo
+  # echo -e "\e[33m# Allow the specified user to run Homebrew install without a password\e[0m"
+  # echo "$USER ALL=(ALL) NOPASSWD: /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\"" | sudo EDITOR="tee -a" visudo
 
   echo -e "\e[33m# Install Homebrew with the specified username and password\e[0m"
   echo | /bin/bash -c "$(curl -fsSLu $userName:$password https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -202,7 +204,7 @@ cloneLearn() {
 
   cd $HOME/work &&
 
-  yes | caffeinate git clone git@github.com:blackboard-learn/learn.git &&
+  GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' caffeinate git clone git@github.com:blackboard-learn/learn.git &&
 
   # The sudo authentication will be refreshed at the beginning of the script
   echo $password |  sudo -v
@@ -369,10 +371,16 @@ else
   error "Error: Failed to start"
 fi
 
-read -p "Open Zscaler and Turn Off Internet Security come back here and Press Enter..." continue_key
-# Check if the user pressed Enter (continue_key will be empty)
+# Define the function to prompt the user and capture input
+prompt_continue() {
+  echo "$1"
+  read continue_key
+}
+
+# Example usage: Prompt the user and capture input
+prompt_continue "Open Zscaler and Turn Off Internet Security and come back here and press Enter..."
 if [ -z "$continue_key" ]; then
-  ~/learn-install/v2/install.zsh $password
+  ~/learn-install/v2/install.zsh "$password"
 else
   echo "Continuation aborted."
 fi

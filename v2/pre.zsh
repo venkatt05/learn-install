@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
 chmod +x ~/learn-install/v2/main.zsh
-chmod +x ~/learn-install/v2/clone.zsh
 
 echo "Enter your System password: "
 read -s password
@@ -12,6 +11,7 @@ read userEmail
 echo "Enter your user name that will be used/configured with you local Git : "
 read userName
 
+echo "Enter password to Authenticate sudo access : "
 echo $password |  sudo -v
 
 # This script is used to check and generate SSH key for the user. This is a pre-requisite script that should be ran before running the main script.
@@ -51,10 +51,18 @@ else
   echo "SSH key already present. Add to your github account(https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) and then configure the SSH. Once done proceed with next steps."
 fi
 
-  read -p "After adding the ssh key please Press Enter to continue..." continue_key
-  # Check if the user pressed Enter (continue_key will be empty)
-  if [ -z "$continue_key" ]; then
-    ~/learn-install/v2/main.zsh $password $userEmail $userName
-  else
-    echo "Continuation aborted."
-  fi
+# Define the function to prompt the user and capture input
+prompt_continue() {
+  echo "$1"
+  read continue_key
+}
+
+# Example usage: Prompt the user and capture input
+prompt_continue "After adding the ssh key please Press Enter to continue..."
+
+# Check if the user pressed Enter (continue_key will be empty)
+if [ -z "$continue_key" ]; then
+~/learn-install/v2/main.zsh "$password" "$userEmail" "$userName"
+else
+  echo "Continuation aborted."
+fi
