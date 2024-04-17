@@ -6,11 +6,10 @@ Prerequisite :
 
 Step 1
 	Note:
-		1. Run the below command by replacing the emailID with your anthology email and userName with your name.
+		1. Run the below command.
 		2. When asked for password, enter you system password
-		2. When SSH prompt asks for a passkey. Just press enter without providing any key.
 	
-	run  "~/learn-install/v2/pre.zsh emailID"
+	run  "~/learn-install/v2/pre.zsh"
 
 
 General Notes on Uninstallation :
