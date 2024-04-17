@@ -13,26 +13,6 @@ Step 1
 	run  "~/learn-install/v2/pre.zsh emailID"
 
 
-
-Step 2
-	To add you ssh key to your github account, follow the below points
-	1. run the command - "pbcopy < ~/.ssh/id_ed25519.pub"
-	2. Go to your github account > settings > SSH and GPG keys
-	3. click on "New SSH Key"
-	4. Type a title for the ssh. ex: anthology-ssh
-	5. press "command + v" to paste the SSH into the value box.
-	6. once the key is added, click on "configure sso" button and authorize all the projects.
-
-
-
-Step 3
-	Note:
-		1. Type Yes or Y whenever terminal prompts you with a question
-		2. replace the emailID with your anthology email ID
-	
-	run "~/learn-install/v2/main.zsh"
-
-
 General Notes on Uninstallation :
 
 <!-- To uninstall postgres -->

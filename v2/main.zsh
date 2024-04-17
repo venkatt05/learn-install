@@ -1,14 +1,7 @@
 #!/usr/bin/env zsh
-
-echo "Enter your password: "
-read -s password
-
-echo "Enter your email (Anthology email): "
-read userEmail
-
-echo "Enter your user name that will be used/configured with you local Git : "
-read userName
-
+password  = $1
+userEmail = $2
+userName  = $3
 computer_name=$(scutil --get ComputerName)
 
 # The default behavior of sudo is to cache the authentication for a certain amount of time (usually 5 minutes) 
@@ -374,5 +367,13 @@ then
   cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
 else
   error "Error: Failed to start"
+fi
+
+read -p "Open Zscaler and Turn Off Internet Security come back here and Press Enter..." continue_key
+# Check if the user pressed Enter (continue_key will be empty)
+if [ -z "$continue_key" ]; then
+  ~/learn-install/v2/install.zsh $password
+else
+  echo "Continuation aborted."
 fi
 
