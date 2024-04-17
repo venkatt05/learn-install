@@ -12,7 +12,8 @@ echo $password |  sudo -v
 
 error() {
   local input_message="$1"
-  echo -e "\e[31mError: $input_message\e[0m" >> ~/install.log
+  local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+   echo -e "\e[31mError at $timestamp: $input_message\e[0m" >> ~/install.log
   tail -10f ~/install.log && exit
   return 1
 }
@@ -115,7 +116,7 @@ start() {
 }
 
 setupGit() {
-    local userName="$1"
+    local userName="$userName"
     # Source the zshrc file
     source ~/.zshrc
 
@@ -373,7 +374,7 @@ fi
 
 # Define the function to prompt the user and capture input
 prompt_continue() {
-  echo "$1"
+  echo -e "\e[1;33m$1\e[0m" 
   read continue_key
 }
 

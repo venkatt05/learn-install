@@ -53,7 +53,7 @@ fi
 
 # Define the function to prompt the user and capture input
 prompt_continue() {
-  echo "$1"
+  echo -e "\e[1;33m$1\e[0m"  
   read continue_key
 }
 
