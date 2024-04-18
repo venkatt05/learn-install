@@ -33,23 +33,24 @@ if [  ! -f ~/.ssh/id_ed25519 ]; then
 
   # Add SSH key to agent
   ssh-add --apple-use-keychain $HOME/.ssh/id_ed25519 &&
-
-  echo "\a \a \a \a"
-  echo -e "\e[33m*******************  Read the Below Notes Carefully*********************\e[0m"
-  echo -e "\n \e[33mYour public SSH key Highlighted in Green Colour and is already copied:\e[0m" &&
-  echo -e "\n \e[32m$(cat ~/.ssh/id_ed25519.pub)\e[0m"
-  echo "\n 1. You can see there is a GiHub URL opened in your default browser."
-  echo "\n 2. press "command + v" to paste the SSH into the value box."
-  echo "\n 3. click on \e[1;32mconfigure sso\e[0m button and authorize all the projects."
-  echo -e "\n"
-  echo -e "For more details Refer: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with the next steps once done."
-
-  pbcopy < ~/.ssh/id_ed25519.pub
   open "https://github.com/settings/ssh/new"
 
 else
-  echo "SSH key already present. Add to your github account(https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) and then configure the SSH. Once done proceed with next steps."
+  echo "\n SSH key already present."
+  open "https://github.com/settings/ssh" 
 fi
+  pbcopy < ~/.ssh/id_ed25519.pub
+  echo "\a \a \a \a"
+  echo -e "\e[33m*******************  Read the Below Notes Carefully*********************\e[0m"
+  echo -e "\n \e[33m 1. Your public SSH key Highlighted in Green Colour and is already copied:\e[0m" &&
+  echo -e "\n \e[32m$(cat ~/.ssh/id_ed25519.pub)\e[0m"
+  pbcopy < ~/.ssh/id_ed25519.pub
+  echo "\n 2. You can see there is a GiHub URL opened in your default browser."
+  echo "\n 3. Ignore this step if you already have the SSH Key in you GitHub Account else Press "command + v" to paste the SSH into the value box."
+  echo "\n 4. click on \e[1;32mconfigure sso\e[0m button and authorize all the projects."
+  echo -e "\n"
+  echo -e "For more details Refer: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with the next steps once done."
+
 
 # Define the function to prompt the user and capture input
 prompt_continue() {
