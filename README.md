@@ -1,56 +1,63 @@
-Download the files, Run the below commands one by one
+# Installation Guide
 
-Step 1
-run  "chmod +x ~/learn-install/s1.zsh"
+Follow the steps below to set up your environment:
 
-
-Step 2
-run  "~/learn-install/s1.zsh"
-
-
-Step 4
+### Prerequisite :
 Create your Github account with Anthology email ID & raise necessary access for all the projects.
 ( Mostly this step is applicable only for new employees. You can ignore this step, if you already got access to those projects. )
 
+# Steps
 
+### Step 1 :
+Run the blow command in your terminal
+```bash
+chmod +x ~/learn-install/v2/pre.zsh
+```
 
-Step 5
+### Step 2 :
+**Note:**
+1. Run the below command by replacing the emailId with your anthology email and userName with your name.
+2. When asked for password, enter you system password.
+3. When SSH prompt asks for a passkey. Just press enter without providing any key.
 
-Note:
-	1. Run the below command by replacing the emailID with your anthology email and userName with your name.
-	2. While running the below command, When SSH prompt asks for a passkey. Just press enter without providing any key.
+```bash 
+~/learn-install/v2/pre.zsh {emailId}
+```
 
-run "~/learn-install/s4.zsh emailID userName"
+### Step 3 :
+To add your ssh key to your github account, follow the below points -
+1. Type a title for the ssh. ex: anthology-ssh.
+2. Press "command + v" to paste the SSH into the value box.
+3. Once the key is added, click on "configure sso" button and authorize all the projects.
 
+### Step 4 :
+**Note:**
+1. Type Yes or Y whenever terminal prompts you with a question.
 
+```bash
+~/learn-install/v2/main.zsh
+```
 
-Step 6
-To add you ssh key to your github account, follow the below points
- 1. run the command - "pbcopy < ~/.ssh/id_ed25519.pub"
- 2. Go to your github account > settings > SSH and GPG keys
- 3. click on "New SSH Key"
- 4. Type a title for the ssh. ex: anthology-ssh
- 5. press "command + v" to paste the SSH into the value box.
- 6. once the key is added, click on "configure sso" button and authorize all the projects.
+### Step 5 :
+**Note:**
+```bash
+~/learn-install/v2/clone.zsh
+```
 
+## General notes on uninstallation :
+To uninstall postgres
 
+```bash
+sudo rm -rf /Library/PostgreSQL
+```
 
-Step 7
+How to fix the below errror :
 
-Note:
-	1. Type Yes or Y whenever terminal prompts you with a question
-	2. replace the emailID with your anthology email ID
+> Not able to start postgres @12 using brew command "brew services start postgresql@12".
+> "Error: Failure while executing; `/bin/launchctl bootstrap system /Library/LaunchDaemons/homebrew.mxcl.postgresql@12.> plist` exited with 5. "
 
-run "~/learn-install/s5.zsh emailID"
-
-
-
-Step 8 (Setting up scalar certs)
-1. run  "cp -R ~/learn-install/zscaler-certs ~/work/zscaler-certs"
-2. run "sudo keytool -import -trustcacerts -alias zscaler_root_ca -file ~/work/zscaler-certs/ZscalerRootCA.cer -cacerts"
-3. when terminal asks for key password enter "changeit" and then enter
-4. run "export NODE_EXTRA_CA_CERTS=~/work/zscaler-certs/ZscalerRootCA.pem"
-
-
-Step 9
-install docker desktop from - https://www.docker.com/products/docker-desktop/
+```bash
+sudo chown -R $(whoami) /usr/local/var/postgresql@12
+brew services stop postgresql@12
+brew services start postgresql@12
+```

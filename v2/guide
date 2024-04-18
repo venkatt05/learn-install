@@ -11,7 +11,15 @@ Step 1
 	
 	run  "~/learn-install/v2/pre.zsh"
 
+[9:00 PM] Santhosh Kumar
+Sasikala note- Error handler should retry/quit the process as required.
+[9:02 PM] Santhosh Kumar
+echo $JAVA_HOME
+[9:03 PM] Santhosh Kumar
+Sasikala - TODO: Add the folder path instructions in a readme file.
+ like 1
 
+ configure sso if already we have ssh 
 General Notes on Uninstallation :
 
 <!-- To uninstall postgres -->

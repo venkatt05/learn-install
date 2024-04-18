@@ -62,7 +62,7 @@ prompt_continue "After adding the ssh key please Press Enter to continue..."
 
 # Check if the user pressed Enter (continue_key will be empty)
 if [ -z "$continue_key" ]; then
-~/learn-install/v2/main.zsh "$password" "$userEmail" "$userName"
+./main.zsh "$password" "$userEmail" "$userName"
 else
   echo "Continuation aborted."
 fi

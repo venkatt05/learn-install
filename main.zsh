@@ -381,7 +381,7 @@ prompt_continue() {
 # Example usage: Prompt the user and capture input
 prompt_continue "Open Zscaler and Turn Off Internet Security and come back here and press Enter..."
 if [ -z "$continue_key" ]; then
-  ~/learn-install/v2/install.zsh "$password"
+ ./install.zsh "$password"
 else
   echo "Continuation aborted."
 fi
