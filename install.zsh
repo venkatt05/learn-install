@@ -39,12 +39,12 @@ install_ultra() {
   if [ -d ultra ]; then
     cd ultra &&
     ./update.sh &&
-    cd $HOME/work &&
-    if [ -d ultra-router ]; then
-        cd ultra-router &&
-         echo -e "\e[33m Starting Ultra Router... \e[0m"
-        ./start 
-    fi
+    # cd $HOME/work &&
+    # if [ -d ultra-router ]; then
+    #     cd ultra-router &&
+    #      echo -e "\e[33m Starting Ultra Router... \e[0m"
+    #     ./start 
+    # fi
     cd $HOME/work/ultra/apps/ultra-ui &&
     echo -e "\e[33m Starting Ultra Application... \e[0m"
     yarn start

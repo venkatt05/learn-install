@@ -275,9 +275,9 @@ cloneUltra() {
 
   source ~/.zshrc &&
 
-  nvm install lts/hydrogen &&
+  nvm install lts/iron &&
 
-  nvm alias default lts/hydrogen &&
+  nvm alias default lts/iron &&
 
   brew install yarn &&
 
