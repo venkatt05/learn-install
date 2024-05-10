@@ -22,14 +22,16 @@ install_corretto() {
   echo -e "\e[33m# Remove existing Corretto installations and tap cask-versions\e[0m"
   echo $password |  sudo -S rm -rf /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk /usr/local/Caskroom/corretto
 
-  echo -e "\e[33m# Tap homebrew/cask-versions\e[0m"
-  brew tap homebrew/cask-versions
+  # echo -e "\e[33m# Tap homebrew/cask-versions\e[0m it Got deprecated so the below line is commented"
+  # brew tap homebrew/cask-versions
 
-  echo -e "\e[33m# Update Homebrew\e[0m"
-  brew update
+  # echo -e "\e[33m# brew Update \e[0m"
+  # brew update
+
+  brew install cask
 
   echo -e "\e[33m# Install Corretto 11\e[0m"
-  brew install --cask corretto11 &&
+  brew install --cask corretto@11 &&
 
   echo -e "\e[33m# Add JAVA_HOME to .zshrc and source it\e[0m"
   echo '\nexport JAVA_HOME=$(/usr/libexec/java_home -v 11)' >> ~/.zshrc &&

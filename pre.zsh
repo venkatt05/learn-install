@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-chmod +x ~/learn-install/v2/main.zsh
+chmod +x ~/learn-install/main.zsh
 
 echo "Enter your System password: "
 read -s password
