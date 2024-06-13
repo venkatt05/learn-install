@@ -3,7 +3,7 @@
 chmod +x ~/learn-install/main.zsh
 
 # Define the file to store the inputs
-input_file="input.txt"
+input_file="learn_install_input.txt"
 
 # Check if the file exists
 if [ -f "$input_file" ]; then
