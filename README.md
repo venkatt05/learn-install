@@ -11,7 +11,7 @@ Create your Github account with Anthology email ID & raise necessary access for 
 
 ### Step 1 :
 
-Run the blow command in your terminal
+Run the below command in your terminal
 
 ```bash {"id":"01J08ZGVVGPEX3SFP2YEYH21CW"}
 git clone https://github.com/venkatt05/learn-install.git
