@@ -2,17 +2,35 @@
 
 chmod +x ~/learn-install/main.zsh
 
-echo "Enter your System password: "
-read -s password
+# Define the file to store the inputs
+input_file="input.txt"
 
-echo "Enter your email (Anthology email): "
-read userEmail
+# Check if the file exists
+if [ -f "$input_file" ]; then
+    # Read the inputs from the file
+    IFS=$'\n' read -d '' -r -a lines < "$input_file"
+    password=${lines[0]}
+    userEmail=${lines[1]}
+    userName=${lines[2]}
+else
+    # Ask the user for the inputs
+    echo "Enter your System password: "
+    read -s password
 
-echo "Enter your user name that will be used/configured with you local Git : "
-read userName
+    echo "Enter your email (Anthology email): "
+    read userEmail
 
-echo "Enter password to Authenticate sudo access : "
-echo $password |  sudo -v
+    echo "Enter your user name that will be used/configured with you local Git : "
+    read userName
+
+    # Write the inputs to the file
+    echo "$password" > "$input_file"
+    echo "$userEmail" >> "$input_file"
+    echo "$userName" >> "$input_file"
+fi
+
+// Updating to extent the sudo timeout to 180 minutes
+echo 'Defaults        timestamp_timeout=180' | sudo tee /etc/sudoers.d/timeout
 
 # This script is used to check and generate SSH key for the user. This is a pre-requisite script that should be ran before running the main script.
 # Check if SSH key is present

@@ -6,9 +6,6 @@ userName=$3
 
 computer_name=$(scutil --get ComputerName)
 
-# The default behavior of sudo is to cache the authentication for a certain amount of time (usually 5 minutes) 
-# The sudo authentication will be refreshed at the beginning of the script
-echo $password |  sudo -v
 
 error() {
   local input_message="$1"
@@ -201,16 +198,10 @@ addHosts() {
 }
 
 cloneLearn() {
-  
-  # The sudo authentication will be refreshed at the beginning of the script
-  echo $password |  sudo -v
 
   cd $HOME/work &&
 
   GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' caffeinate git clone git@github.com:blackboard-learn/learn.git &&
-
-  # The sudo authentication will be refreshed at the beginning of the script
-  echo $password |  sudo -v
 
   git clone git@github.com:blackboard-learn/learn.util.git &&
 
@@ -269,9 +260,6 @@ cloneLearn() {
 }
 
 cloneUltra() {
-
-    # The sudo authentication will be refreshed at the beginning of the script
-  echo $password |  sudo -v
   
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash &&
 
@@ -311,9 +299,6 @@ cloneUltra() {
 
   cd $HOME/work &&
 
-  # The sudo authentication will be refreshed at the beginning of the script
-  echo $password |  sudo -v
-
   git clone git@github.com:blackboard-learn/ultra.git &&
 
   cd ultra &&
@@ -328,9 +313,6 @@ cloneUltra() {
 cloneUltraRouter() {
   cd $HOME/work &&
   echo -e "\e[33mStarted cloning Ultra-router\e[0m"
-
-  # The sudo authentication will be refreshed at the beginning of the script
-  echo $password |  sudo -v
 
   git clone git@github.com:blackboard-learn/ultra-router.git
 
@@ -354,6 +336,10 @@ cloneProjects() {
   fi
 }
 
+removeSudoTimer() {
+  sudo rm /etc/sudoers.d/timeout
+}
+
 setupZScalar() {
   cp -R ~/learn-install/zscaler-certs ~/work/zscaler-certs &&
   password="changeit"
@@ -370,6 +356,7 @@ then
   setupPostgres || { error "Error: Failed to setup Postgres."; exit 1; }
   setupGit "$userName"|| { error "Error: Failed to setup Git."; exit 1; }
   cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
+  removeSudoTimer || { error "Error: Failed to remove sudo timer."; exit 1; }
 else
   error "Error: Failed to start"
 fi

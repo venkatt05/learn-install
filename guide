@@ -7,10 +7,9 @@ Prerequisite :
 
 Step 1
 	Note:
-		1. Run the below command.
-		2. When asked for password, enter you system password
-	
-	run  "./pre.zsh"
+	Open Terminal in your mac
+	run "git clone https://github.com/venkatt05/learn-install.git"
+	run  "./learn-install/pre.zsh"
 
  
 General Notes on Uninstallation :
