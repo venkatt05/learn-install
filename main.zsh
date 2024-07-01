@@ -1,8 +1,34 @@
 #!/usr/bin/env zsh
 
-password=$1
-userEmail=$2
-userName=$3
+# Define the file to store the inputs
+input_file="learn_install_input.txt"
+
+# Check if the file exists
+if [ -f "$input_file" ]; then
+    # Read the inputs from the file
+    lines=()
+    while IFS= read -r line; do
+        lines+=("$line")
+    done < "$input_file"
+    password=${lines[1]}
+    userEmail=${lines[2]}
+    userName=${lines[3]}
+else
+    # Ask the user for the inputs
+    echo "Enter your System password: "
+    read -s password
+
+    echo "Enter your email (Anthology email): "
+    read userEmail
+
+    echo "Enter your user name that will be used/configured with you local Git : "
+    read userName
+
+    # Write the inputs to the file
+    echo "$password" > "$input_file"
+    echo "$userEmail" >> "$input_file"
+    echo "$userName" >> "$input_file"
+fi
 
 computer_name=$(scutil --get ComputerName)
 

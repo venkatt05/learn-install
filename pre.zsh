@@ -8,10 +8,13 @@ input_file="learn_install_input.txt"
 # Check if the file exists
 if [ -f "$input_file" ]; then
     # Read the inputs from the file
-    IFS=$'\n' read -d '' -r -a lines < "$input_file"
-    password=${lines[0]}
-    userEmail=${lines[1]}
-    userName=${lines[2]}
+    lines=()
+    while IFS= read -r line; do
+        lines+=("$line")
+    done < "$input_file"
+    password=${lines[1]}
+    userEmail=${lines[2]}
+    userName=${lines[3]}
 else
     # Ask the user for the inputs
     echo "Enter your System password: "

@@ -34,3 +34,6 @@ Quit Postgres.app & drag it to the Trash
 defaults delete com.postgresapp.Postgres2
 (Optional) Remove the $PATH config for the command line tools:
 sudo rm /etc/paths.d/postgresapp
+
+
+xcode-select --install
