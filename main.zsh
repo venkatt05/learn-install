@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Define the file to store the inputs
-input_file="learn_install_input.txt"
+input_file=" $HOME/learn_install_input.txt"
 
 # Check if the file exists
 if [ -f "$input_file" ]; then
@@ -43,7 +43,15 @@ error() {
 
 install_corretto() {
   echo -e "\e[33m# Remove existing Corretto installations and tap cask-versions\e[0m"
-  echo $password |  sudo -S rm -rf /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk /usr/local/Caskroom/corretto
+  # echo $password |  sudo -S rm -rf /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk /usr/local/Caskroom/corretto
+
+  # Check if Amazon Corretto 11 JDK is installed in the /Library/Java/JavaVirtualMachines directory
+  if [ -d "/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk" ] || [ -d "/usr/local/Caskroom/corretto" ]; then
+    echo "\e[33m# Amazon Corretto 11 JDK is installed. Removing..."
+    echo $password | sudo -S rm -rf /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk /usr/local/Caskroom/corretto
+  else
+    echo "Amazon Corretto 11 JDK is not installed."
+  fi
 
   # echo -e "\e[33m# Tap homebrew/cask-versions\e[0m it Got deprecated so the below line is commented"
   # brew tap homebrew/cask-versions
@@ -52,13 +60,27 @@ install_corretto() {
   # brew update
 
   brew install cask
-
+  if [ $? -ne 0 ]; then
+    echo "Failed to install Homebrew Cask."
+    return 1
+  fi
   echo -e "\e[33m# Install Corretto 11\e[0m"
   brew install --cask corretto@11 &&
-
+  if [ $? -ne 0 ]; then
+    echo "Failed to install Corretto 11."
+    return 1
+  fi
   echo -e "\e[33m# Add JAVA_HOME to .zshrc and source it\e[0m"
   echo '\nexport JAVA_HOME=$(/usr/libexec/java_home -v 11)' >> ~/.zshrc &&
+
   source ~/.zshrc
+
+  if [[ -n "$JAVA_HOME" ]]; then
+  echo "\e[33m# JAVA_HOME variable added successfully.\e[0m"
+  else
+    echo "JAVA_HOME variable not found."
+  fi
+
 }
 
 installPostgres() {
@@ -86,6 +108,8 @@ installPostgres() {
 }
 
 createUserAndChangePassword() {
+  source ~/.zshrc
+
   echo -e "\e[33m# Create superuser and createuser roles in PostgreSQL\e[0m"
   createuser -s -r postgres
 
@@ -118,8 +142,8 @@ start() {
   echo -e "\e[33m# Create a 'work' directory and an empty .zshrc file\e[0m"
   mkdir $HOME/work && touch $HOME/.zshrc
 
-  echo -e "\e[33m# Install Xcode command line tools\e[0m"
-  xcode-select --install
+  # echo -e "\e[33m# Install Xcode command line tools\e[0m"
+  # xcode-select --install
 
   # echo -e "\e[33m# Allow the specified user to run Homebrew install without a password\e[0m"
   # echo "$USER ALL=(ALL) NOPASSWD: /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)\"" | sudo EDITOR="tee -a" visudo
@@ -227,7 +251,7 @@ cloneLearn() {
 
   cd $HOME/work &&
 
-  GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' caffeinate git clone git@github.com:blackboard-learn/learn.git &&
+  GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no' caffeinate git clone --recursive --shallow-submodules --depth 1 --jobs 5 git@github.com:blackboard-learn/learn.git &&
 
   git clone git@github.com:blackboard-learn/learn.util.git &&
 
@@ -374,6 +398,9 @@ setupZScalar() {
   export NODE_EXTRA_CA_CERTS=~/work/zscaler-certs/ZscalerRootCA.pem
 }
 
+START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "Script started at: $START_TIME"
+
 start || error "Failed to install homebrew"
 
 if [ $? -eq 0 ];
@@ -388,17 +415,15 @@ else
   error "Error: Failed to start"
 fi
 
-# Define the function to prompt the user and capture input
-prompt_continue() {
-  echo -e "\e[1;33m$1\e[0m" 
-  read continue_key
-}
+END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "Script ended at: $END_TIME"
 
-# Example usage: Prompt the user and capture input
-prompt_continue "Open Zscaler and Turn Off Internet Security and come back here and press Enter..."
-if [ -z "$continue_key" ]; then
- ./install.zsh "$password"
-else
-  echo "Continuation aborted."
-fi
+# Optional: Calculate duration
+START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
+END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
+DURATION=$(($END_SEC - $START_SEC))
+echo "Duration: $DURATION seconds"
+
+~/learn-install/install.zsh
+
 

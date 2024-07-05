@@ -1,9 +1,12 @@
 #!/usr/bin/env zsh
 
+START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "Script started at: $START_TIME"
+
 chmod +x ~/learn-install/main.zsh
 
 # Define the file to store the inputs
-input_file="learn_install_input.txt"
+input_file="$HOME/learn_install_input.txt"
 
 # Check if the file exists
 if [ -f "$input_file" ]; then
@@ -32,7 +35,8 @@ else
     echo "$userName" >> "$input_file"
 fi
 
-// Updating to extent the sudo timeout to 180 minutes
+# Updating to extent the sudo timeout to 180 minutes
+echo $password | sudo -S -v
 echo 'Defaults        timestamp_timeout=180' | sudo tee /etc/sudoers.d/timeout
 
 # This script is used to check and generate SSH key for the user. This is a pre-requisite script that should be ran before running the main script.
@@ -84,7 +88,18 @@ prompt_continue "After adding the ssh key please Press Enter to continue..."
 
 # Check if the user pressed Enter (continue_key will be empty)
 if [ -z "$continue_key" ]; then
-./main.zsh "$password" "$userEmail" "$userName"
+
+# At the very end of your script:
+END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "Script ended at: $END_TIME"
+
+# Optional: Calculate duration
+START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
+END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
+DURATION=$(($END_SEC - $START_SEC))
+echo "Duration: $DURATION seconds"
+
+~/learn-install/main.zsh "$password" "$userEmail" "$userName"
 else
   echo "Continuation aborted."
 fi

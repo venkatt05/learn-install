@@ -1,6 +1,34 @@
 #!/usr/bin/env zsh
-password="$1"
-echo $password |  sudo -v
+# Define the file to store the inputs
+input_file="$HOME/learn_install_input.txt"
+
+# Check if the file exists
+if [ -f "$input_file" ]; then
+    # Read the inputs from the file
+    lines=()
+    while IFS= read -r line; do
+        lines+=("$line")
+    done < "$input_file"
+    password=${lines[1]}
+    userEmail=${lines[2]}
+    userName=${lines[3]}
+else
+    # Ask the user for the inputs
+    echo "Enter your System password: "
+    read -s password
+
+    echo "Enter your email (Anthology email): "
+    read userEmail
+
+    echo "Enter your user name that will be used/configured with you local Git : "
+    read userName
+
+    # Write the inputs to the file
+    echo "$password" > "$input_file"
+    echo "$userEmail" >> "$input_file"
+    echo "$userName" >> "$input_file"
+fi
+echo $password | sudo -S -v
 
 print_congrats() {
 echo -e "\e[1m \e[32m ********* Congratulations!!! ********  \e[0m" 
@@ -15,9 +43,18 @@ error() {
   return 1
 }
 
+# Define the function to prompt the user and capture input
+prompt_continue() {
+  echo -e "\e[1;33m$1\e[0m"  
+  read continue_key
+}
+
 install_Learn() {
-echo $password |  sudo -v
+  echo $password |  sudo -S -v
+  source $HOME/.zshrc &&
+
   echo -e "\e[33m Installing Learn ... \e[0m"
+
   cd $HOME/work &&
   if [ -d learn ]; then
     cd learn &&
@@ -33,18 +70,19 @@ echo $password |  sudo -v
 }
 
 install_ultra() {
-  echo $password |  sudo -v
+  echo $password |  sudo -S -v
+  source $HOME/.zshrc &&
   echo "Installing Ultra..."
   cd $HOME/work &&
   if [ -d ultra ]; then
     cd ultra &&
     ./update.sh &&
-    # cd $HOME/work &&
-    # if [ -d ultra-router ]; then
-    #     cd ultra-router &&
-    #      echo -e "\e[33m Starting Ultra Router... \e[0m"
-    #     ./start 
-    # fi
+    cd $HOME/work &&
+    if [ -d ultra-router ]; then
+        cd ultra-router &&
+         echo -e "\e[33m Starting Ultra Router... \e[0m"
+        yes '' | ./start >> ~/install.log 2>&1 &
+    fi
     cd $HOME/work/ultra/apps/ultra-ui &&
     echo -e "\e[33m Starting Ultra Application... \e[0m"
     yarn start
@@ -57,11 +95,31 @@ install_ultra() {
 
 }
 
+START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "Script started at: $START_TIME"
+
+prompt_continue "Turn off zscalar and please Press Enter to continue..."
+
+# Check if the user pressed Enter (continue_key will be empty)
+if [ -z "$continue_key" ]; then
 install_Learn || error "Failed to install Learn"
+else
+  echo "Install Learn aborted due to no input from the user."
+fi
 
 if [ $? -eq 0 ];
 then
-install_ultra || { error "Error: Failed to install Ultra."; exit 1; }
+
+  install_ultra || { error "Error: Failed to install Ultra."; exit 1; }
+
+  END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+  echo "Script ended at: $END_TIME"
+
+  # Optional: Calculate duration
+  START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
+  END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
+  DURATION=$(($END_SEC - $START_SEC))
+  echo "Duration: $DURATION seconds"
 else
   error "Error: Failed to start"
 fi
