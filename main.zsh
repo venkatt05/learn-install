@@ -384,10 +384,6 @@ cloneProjects() {
   fi
 }
 
-removeSudoTimerAndInputFile() {
-  sudo rm /etc/sudoers.d/timeout
-  rm $input_file
-}
 
 setupZScalar() {
   cp -R ~/learn-install/zscaler-certs ~/work/zscaler-certs &&
@@ -408,7 +404,6 @@ then
   setupPostgres || { error "Error: Failed to setup Postgres."; exit 1; }
   setupGit "$userName"|| { error "Error: Failed to setup Git."; exit 1; }
   cloneProjects || { error "Error: Failed to clone projects."; exit 1; }
-  removeSudoTimerAndInputFile || { error "Error: Failed to remove sudo timer."; exit 1; }
 else
   error "Error: Failed to start"
 fi

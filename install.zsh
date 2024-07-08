@@ -106,6 +106,11 @@ install_ultra() {
 
 }
 
+removeSudoTimerAndInputFile() {
+  sudo rm /etc/sudoers.d/timeout
+  rm $input_file
+}
+
 START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 echo "Script started at: $START_TIME"
 
@@ -113,6 +118,7 @@ echo "Script started at: $START_TIME"
 if [ -z "$continue_key" ]; then
 install_Learn || error "Failed to install Learn"
 install_ultra_router || error "Failed to install Learn"
+removeSudoTimerAndInputFile || { error "Error: Failed to remove sudo timer."; exit 1; }
 else
   echo "Install Learn aborted due to no input from the user."
 fi
