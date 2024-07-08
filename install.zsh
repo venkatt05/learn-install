@@ -66,7 +66,7 @@ install_Learn() {
     gdl startLearn
     open "https://mylearn.int.bbpd.io"
     print_congrats
-
+    fi
   else
     echo -e "\e[33m There is no Learn Folder ... \e[0m"
   fi
