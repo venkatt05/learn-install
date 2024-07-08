@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Define the file to store the inputs
-input_file=" $HOME/learn_install_input.txt"
+input_file="$HOME/learn_install_input.txt"
 
 # Check if the file exists
 if [ -f "$input_file" ]; then
@@ -304,9 +304,7 @@ cloneLearn() {
 
   source $HOME/.zshrc &&
 
-  cd ~/work/learn &&
 
-  echo "Turn off zscalar and run 'gdl clean && gdl installLearn'" 
 }
 
 cloneUltra() {
@@ -379,7 +377,7 @@ cloneProjects() {
   addHosts
   if [ $? -eq 0 ]; then
     cloneLearn &&
-    cloneUltra &&
+    # cloneUltra &&
     cloneUltraRouter
   else
     echo "Error: Failed to clone projects" >> ~/install.log

@@ -58,15 +58,31 @@ install_Learn() {
   cd $HOME/work &&
   if [ -d learn ]; then
     cd learn &&
+    echo "\a \a \a \a"
+    prompt_continue "Turn off zscalar and please Press Enter to continue..."
+    if [ -z "$continue_key" ]; then
     gdl installLearn &&
     echo -e "\e[33m Starting Learn Application... \e[0m"
     gdl startLearn
     open "https://mylearn.int.bbpd.io"
     print_congrats
-    
+
   else
     echo -e "\e[33m There is no Learn Folder ... \e[0m"
   fi
+}
+
+install_ultra_router() {
+  echo $password |  sudo -S -v
+  source $HOME/.zshrc &&
+  echo "Starting ultra_router..."
+  cd $HOME/work &&
+    if [ -d ultra-router ]; then
+        cd ultra-router &&
+         echo -e "\e[33m Starting Ultra Router... \e[0m"
+        yes '' | ./start >> ~/install.log 2>&1 &
+    fi
+
 }
 
 install_ultra() {
@@ -78,11 +94,6 @@ install_ultra() {
     cd ultra &&
     ./update.sh &&
     cd $HOME/work &&
-    if [ -d ultra-router ]; then
-        cd ultra-router &&
-         echo -e "\e[33m Starting Ultra Router... \e[0m"
-        yes '' | ./start >> ~/install.log 2>&1 &
-    fi
     cd $HOME/work/ultra/apps/ultra-ui &&
     echo -e "\e[33m Starting Ultra Application... \e[0m"
     yarn start
@@ -98,21 +109,23 @@ install_ultra() {
 START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 echo "Script started at: $START_TIME"
 
-prompt_continue "Turn off zscalar and please Press Enter to continue..."
-
 # Check if the user pressed Enter (continue_key will be empty)
 if [ -z "$continue_key" ]; then
 install_Learn || error "Failed to install Learn"
+install_ultra_router || error "Failed to install Learn"
 else
   echo "Install Learn aborted due to no input from the user."
 fi
 
-if [ $? -eq 0 ];
-then
+# if [ $? -eq 0 ];
+# then
 
-  install_ultra || { error "Error: Failed to install Ultra."; exit 1; }
+#   install_ultra || { error "Error: Failed to install Ultra."; exit 1; }
+# else
+#   error "Error: Failed to start"
+# fi
 
-  END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+ END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
   echo "Script ended at: $END_TIME"
 
   # Optional: Calculate duration
@@ -120,7 +133,3 @@ then
   END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
   DURATION=$(($END_SEC - $START_SEC))
   echo "Duration: $DURATION seconds"
-else
-  error "Error: Failed to start"
-fi
-
