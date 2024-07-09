@@ -293,8 +293,8 @@ cloneLearn() {
 
   source $HOME/.zshrc &&
 
-  echo '\nexport BLACKBOARD_HOME=$HOME/work/blackboard
-  \nexport bbHome=$HOME/work/blackboard
+  echo '\nexport BLACKBOARD_HOME=$HOME/work/bb/blackboard
+  \nexport bbHome=$HOME/work/bb/blackboard
   \nexport LEARN_UTIL_HOME=$HOME/work/learn.util/users/$USER
   \nexport YARN_CACHE_FOLDER=$HOME/work/caches/yarn
   \nexport PGHOST=localhost
@@ -320,6 +320,10 @@ cloneUltra() {
   brew install yarn &&
 
   brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman &&
+  
+  pip3 install setuptools &&
+ 
+  brew install python-setuptools &&     
 
   echo 'autoload -U add-zsh-hook
     load-nvmrc() {
@@ -354,9 +358,12 @@ cloneUltra() {
   nvm use &&
 
   cd $HOME &&
+  
+  pip3 install setuptools &&
+ 
+  brew install python-setuptools   
 
-  echo "run './work/bb/blackboard/tools/admin/UpdateUltraUIDecision.sh --on' after learn installation to enable Ultra"
-}
+  }
 
 cloneUltraRouter() {
   cd $HOME/work &&
@@ -377,7 +384,7 @@ cloneProjects() {
   addHosts
   if [ $? -eq 0 ]; then
     cloneLearn &&
-    # cloneUltra &&
+    cloneUltra &&
     cloneUltraRouter
   else
     echo "Error: Failed to clone projects" >> ~/install.log

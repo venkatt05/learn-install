@@ -98,7 +98,7 @@ install_ultra() {
     echo -e "\e[33m Starting Ultra Application... \e[0m"
     yarn start
   fi
-  $BBHOME/tools/admin/UpdateUltraUIDecision.sh --on
+  $bbHOME/tools/admin/UpdateUltraUIDecision.sh --on
 
   echo "\e[33m ********** To see the Ultra front end ********** \e[0m "
   echo "\n 1. Go to the System Admin panel and enable Ultra by clicking on the \e[1;32m Enable! \e[0m button under -- > The Ultra experience is here! ."
@@ -118,18 +118,11 @@ echo "Script started at: $START_TIME"
 if [ -z "$continue_key" ]; then
 install_Learn || error "Failed to install Learn"
 install_ultra_router || error "Failed to install Learn"
+install_ultra || error "Failed to install Ultra"
 removeSudoTimerAndInputFile || { error "Error: Failed to remove sudo timer."; exit 1; }
 else
   echo "Install Learn aborted due to no input from the user."
 fi
-
-# if [ $? -eq 0 ];
-# then
-
-#   install_ultra || { error "Error: Failed to install Ultra."; exit 1; }
-# else
-#   error "Error: Failed to start"
-# fi
 
  END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
   echo "Script ended at: $END_TIME"
