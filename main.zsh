@@ -358,10 +358,6 @@ cloneUltra() {
   nvm use &&
 
   cd $HOME &&
-  
-  pip3 install setuptools &&
- 
-  brew install python-setuptools   
 
   }
 
