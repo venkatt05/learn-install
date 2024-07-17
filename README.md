@@ -10,11 +10,10 @@ Create your Github account with Anthology email ID & raise necessary access for 
 # Steps
 
 ### Step 1 :
-
-Run the below command in your terminal
+1. signin https://github.com/ 
+2. Run the below command in your terminal
 
 ```bash {"id":"01J08ZGVVGPEX3SFP2YEYH21CW"}
-signin https://github.com/
 xcode-select --install
 git clone https://github.com/venkatt05/learn-install.git
 ```
