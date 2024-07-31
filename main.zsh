@@ -320,10 +320,25 @@ cloneUltra() {
   brew install yarn &&
 
   brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman &&
-  
-  pip3 install setuptools &&
- 
-  brew install python-setuptools &&     
+
+  # Attempt to install setuptools via pip3
+  pip3 install setuptools
+
+  # Check if the pip3 install command failed due to an externally-managed-environment error
+  if [ $? -ne 0 ]; then
+      echo "pip3 install failed, checking Python installation method..."
+
+      # Check if Python is provided by Homebrew
+      PYTHON_PATH=$(which python3)
+      if [[ $PYTHON_PATH == /opt/homebrew/bin/python3 ]]; then
+          echo "Python is provided by Homebrew. Installing setuptools via Homebrew..."
+          brew install python-setuptools
+      else
+          echo "Python is not provided by Homebrew. Please check your Python installation."
+      fi
+  else
+      echo "setuptools installed successfully via pip3."
+  fi
 
   echo 'autoload -U add-zsh-hook
     load-nvmrc() {
