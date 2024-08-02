@@ -98,7 +98,7 @@ install_ultra() {
     echo -e "\e[33m Starting Ultra Application... \e[0m"
     yarn start >> ~/install.log 2>&1 &
     echo -e "\e[33m Started Ultra Application Successfully... \e[0m"
-    $bbHOME/tools/admin/UpdateUltraUIDecision.sh --on
+    ~/work/bb/blackboard/tools/admin/UpdateUltraUIDecision.sh --on
     echo "\e[33m ********** To see the Ultra front end ********** \e[0m "
     echo "\n 1. Go to the System Admin panel and enable Ultra by clicking on the \e[1;32m Enable! \e[0m button under -- > The Ultra experience is here! ."
     echo "\n 2. You will be redirected--from then on--to the Ultra UI at https://mylearn.int.bbpd.io/ultra."
