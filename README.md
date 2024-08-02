@@ -7,10 +7,10 @@ Follow the steps below to set up your environment:
 Create your Github account with Anthology email ID & raise necessary access for all the projects.
 ( Mostly this step is applicable only for new employees. You can ignore this step, if you already got access to those projects. )
 
-# Steps
+# Steps -- Please follow the below 2 steps carefully inorder to avoid script failures . It will be hard to check the cause of the failure .
 
 ### Step 1 :
-1. signin https://github.com/ 
+1. Change the default browser to your desired one by opening "system settings-->Desktop and Dock -->Default web browser". Then it is mandatory to signin https://github.com/ 
 2. Run the below command in your terminal
 
 ```bash {"id":"01J08ZGVVGPEX3SFP2YEYH21CW"}
@@ -22,7 +22,7 @@ git clone https://github.com/venkatt05/learn-install.git
 
 1. Run the below command.
 2. When asked for password, enter you system password.
-3. When SSH prompt asks for a passkey. Just press enter without providing any key.
+3. For the first 5 mins be cautious on the terminal and follow the instructions given in the terminal .It will provide the ssh key You need to manually copy it in GitHub .
 
 ```bash {"id":"01J08ZGVVGPEX3SFP2YH80NTT0"}
 ~/learn-install/pre.zsh
