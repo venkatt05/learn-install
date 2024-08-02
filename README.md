@@ -7,11 +7,12 @@ Follow the steps below to set up your environment:
 Create your Github account with Anthology email ID & raise necessary access for all the projects.
 ( Mostly this step is applicable only for new employees. You can ignore this step, if you already got access to those projects. )
 
-# Steps -- Please follow the below 2 steps carefully inorder to avoid script failures . It will be hard to check the cause of the failure .
+# Steps 
 
 ### Step 1 :
-1. Change the default browser to your desired one by opening "system settings-->Desktop and Dock -->Default web browser". Then it is mandatory to signin https://github.com/ with your anthology mail Id.
-2. Run the below command in your terminal
+1. Please follow the given 2 steps carefully inorder to avoid script failures . It will be hard to check the cause of the failure.
+2. Change the default browser to your desired one by opening "system settings-->Desktop and Dock -->Default web browser". Then it is mandatory to signin https://github.com/ with your anthology mail Id.
+3. Run the below command in your terminal
 
 ```bash {"id":"01J08ZGVVGPEX3SFP2YEYH21CW"}
 xcode-select --install
