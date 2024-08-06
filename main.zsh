@@ -383,10 +383,11 @@ cloneUltraRouter() {
   git clone git@github.com:blackboard-learn/ultra-router.git
 
   echo -e "\e[33mInstalling openresty\e[0m"
-  brew uninstall openresty
-  brew uninstall openresty-openssl
-  brew untap homebrew/nginx
-  brew untap denji/nginx
+  # The below is not required for fresh install
+  # brew uninstall openresty
+  # brew uninstall openresty-openssl
+  # brew untap homebrew/nginx
+  # brew untap denji/nginx
   brew tap openresty/brew
   brew install openresty
 }
