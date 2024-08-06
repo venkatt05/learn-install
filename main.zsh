@@ -111,7 +111,16 @@ createUserAndChangePassword() {
   source ~/.zshrc
 
   echo -e "\e[33m# Create superuser and createuser roles in PostgreSQL\e[0m"
+  sleep 1 # Most of the time it is failling to create user so  wait for a second before creating the user
   createuser -s -r postgres
+   if [ $? -eq 0 ]; then
+    echo "User created successfully."
+  else
+    echo "Failed to create user. Retrying... "
+    sleep 1  # Optional: wait for a second before retrying
+    source ~/.zshrc
+    createuser -s -r postgres
+  fi
 
   echo -e "\e[33m# Set password for the 'postgres' user in PostgreSQL\e[0m"
   psql -U postgres -c "alter user postgres PASSWORD 'postgres'"
