@@ -1,5 +1,21 @@
 #!/usr/bin/env zsh
 
+# Get the operating system name
+os_name=$(uname -s)
+
+# Get the machine hardware name (processor architecture)
+arch_name=$(uname -m)
+
+if [[ "$os_name" == "Darwin" ]]; then
+    if [[ "$arch_name" != "arm64" ]]; then
+        echo "This script is only intended to run on an Apple Silicon processor."
+        exit 1
+    fi
+else
+    echo "This script is not running on a Mac."
+    exit 1
+fi
+
 START_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 echo "Script started at: $START_TIME"
 
