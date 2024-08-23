@@ -105,15 +105,15 @@ prompt_continue "After adding the ssh key please Press Enter to continue..."
 # Check if the user pressed Enter (continue_key will be empty)
 if [ -z "$continue_key" ]; then
 
-# At the very end of your script:
+
 END_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 echo "Script ended at: $END_TIME"
 
-# Optional: Calculate duration
+# Calculate duration of the script
 START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
 END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
 DURATION=$(($END_SEC - $START_SEC))
-echo "Duration: $DURATION seconds"
+echo "Duration: $DURATION seconds" > ~/pre_script_duration.txt
 
 ~/learn-install/main.zsh "$password" "$userEmail" "$userName"
 else

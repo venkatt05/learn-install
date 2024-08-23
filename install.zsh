@@ -58,7 +58,7 @@ install_Learn() {
   cd $HOME/work &&
   if [ -d learn ]; then
     cd learn &&
-    echo "\a \a \a \a"
+    echo -e "\a \a \a \a \a "
     prompt_continue "Turn off zscalar and please Press Enter to continue..."
     if [ -z "$continue_key" ]; then
     gdl installLearn &&
@@ -134,4 +134,24 @@ fi
   START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
   END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
   DURATION=$(($END_SEC - $START_SEC))
-  echo "Duration: $DURATION seconds"
+  echo "Duration: $DURATION seconds" > ~/install_script_duration.txt
+
+  # Read durations from files
+  pre_duration=$(cat ~/pre_script_duration.txt)
+  main_duration=$(cat ~/main_script_duration.txt)
+  post_duration=$(cat ~/install_script_duration.txt)
+
+  # Sum the durations
+  total_duration=$(($pre_duration + $main_duration + $post_duration))
+
+  # Convert total duration to minutes
+  total_minutes=$(($total_duration / 60))
+
+  # Send email with the total duration
+  recipient="sasikala.thoomati@anthology.com"
+  subject="Learn Environment SetUp Completed for $userName"
+  body="The total duration of all scripts is $total_minutes minutes."
+
+  echo "$body" | mail -s "$subject" "$recipient"
+
+  rm ~/pre_script_duration.txt ~/main_script_duration.txt ~/install_script_duration.txt

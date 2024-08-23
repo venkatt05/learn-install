@@ -443,7 +443,7 @@ echo "Script ended at: $END_TIME"
 START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
 END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
 DURATION=$(($END_SEC - $START_SEC))
-echo "Duration: $DURATION seconds"
+echo "Duration: $DURATION seconds" > ~/main_script_duration.txt
 
 ~/learn-install/install.zsh
 
