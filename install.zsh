@@ -130,7 +130,7 @@ fi
   START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
   END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
   DURATION=$(($END_SEC - $START_SEC))
-  echo "Duration: $DURATION seconds" > ~/install_script_duration.txt
+  echo "$DURATION" > ~/install_script_duration.txt
 
   # Read durations from files
   pre_duration=$(cat ~/pre_script_duration.txt)

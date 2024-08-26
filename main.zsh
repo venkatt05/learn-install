@@ -42,9 +42,6 @@ error() {
 }
 
 install_corretto() {
-  echo -e "\e[33m# Remove existing Corretto installations and tap cask-versions\e[0m"
-  # echo $password |  sudo -S rm -rf /Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk /usr/local/Caskroom/corretto
-
   # Check if Amazon Corretto 11 JDK is installed in the /Library/Java/JavaVirtualMachines directory
   if [ -d "/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk" ] || [ -d "/usr/local/Caskroom/corretto" ]; then
     echo "\e[33m# Amazon Corretto 11 JDK is installed. Removing..."
@@ -52,12 +49,6 @@ install_corretto() {
   else
     echo "Amazon Corretto 11 JDK is not installed."
   fi
-
-  # echo -e "\e[33m# Tap homebrew/cask-versions\e[0m it Got deprecated so the below line is commented"
-  # brew tap homebrew/cask-versions
-
-  # echo -e "\e[33m# brew Update \e[0m"
-  # brew update
 
   brew install cask
   if [ $? -ne 0 ]; then
@@ -443,7 +434,7 @@ echo "Script ended at: $END_TIME"
 START_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$START_TIME" "+%s")
 END_SEC=$(date -j -f "%Y-%m-%d %H:%M:%S" "$END_TIME" "+%s")
 DURATION=$(($END_SEC - $START_SEC))
-echo "Duration: $DURATION seconds" > ~/main_script_duration.txt
+echo "$DURATION" > ~/main_script_duration.txt
 
 ~/learn-install/install.zsh
 
