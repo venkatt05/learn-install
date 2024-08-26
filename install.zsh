@@ -31,9 +31,13 @@ fi
 echo $password | sudo -S -v
 
 print_congrats() {
-echo -e "\e[1m \e[32m ********* Congratulations!!! ********  \e[0m" 
+echo -e "\e[1m \e[32m **********************    Congratulations!!!   ***********************  \e[0m" 
+open "https://mylearn.int.bbpd.io"
 echo -e "\e[1m \e[36m Your Learn Application is Up !!! and opened in your default browser\e[0m"  
-echo -e "\e[36m  Userid/password: administrator/changeme .  \e[0m"                                  
+echo -e "\e[36m  Userid/password: administrator/changeme .  \e[0m"  
+echo "\e[33m ********** To see the Ultra front end ********** \e[0m "
+echo "\n 1. Go to the System Admin panel and enable Ultra by clicking on the \e[1;32m Enable! \e[0m button under -- > The Ultra experience is here! ."
+echo "\n 2. You will be redirected--from then on--to the Ultra UI at https://mylearn.int.bbpd.io/ultra."                                
 }
 
 error() {
@@ -59,13 +63,11 @@ install_Learn() {
   if [ -d learn ]; then
     cd learn &&
     echo -e "\a \a \a \a \a "
-    prompt_continue "Turn off zscalar and please Press Enter to continue..."
+    prompt_continue "Turn off zscalar internet Security and please Press Enter to continue..."
     if [ -z "$continue_key" ]; then
     gdl installLearn &&
     echo -e "\e[33m Starting Learn Application... \e[0m"
     gdl startLearn
-    open "https://mylearn.int.bbpd.io"
-    print_congrats
     fi
   else
     echo -e "\e[33m There is no Learn Folder ... \e[0m"
@@ -99,14 +101,8 @@ install_ultra() {
     yarn start >> ~/install.log 2>&1 &
     echo -e "\e[33m Started Ultra Application Successfully... \e[0m"
     ~/work/bb/blackboard/tools/admin/UpdateUltraUIDecision.sh --on
-    echo "\e[33m ********** To see the Ultra front end ********** \e[0m "
-    echo "\n 1. Go to the System Admin panel and enable Ultra by clicking on the \e[1;32m Enable! \e[0m button under -- > The Ultra experience is here! ."
-    echo "\n 2. You will be redirected--from then on--to the Ultra UI at https://mylearn.int.bbpd.io/ultra."
+    print_congrats
   fi
- 
-
-  
-
 }
 
 removeSudoTimerAndInputFile() {
