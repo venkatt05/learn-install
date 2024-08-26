@@ -143,11 +143,13 @@ fi
   # Convert total duration to minutes
   total_minutes=$(($total_duration / 60))
 
-  # Send email with the total duration
-  recipient="sasikala.thoomati@anthology.com"
-  subject="Learn Environment SetUp Completed for $userName"
-  body="The total duration of all scripts is $total_minutes minutes."
+  echo "Total duration: $total_minutes minutes"
 
-  echo "$body" | mail -s "$subject" "$recipient"
+  # Send email with the total duration
+  # recipient="sasikala.thoomati@anthology.com"
+  # subject="Learn Environment SetUp Completed for $userName"
+  # body="The total duration of all scripts is $total_minutes minutes."
+
+  # echo "$body" | mail -s "$subject" "$recipient"
 
   rm ~/pre_script_duration.txt ~/main_script_duration.txt ~/install_script_duration.txt
