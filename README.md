@@ -1,6 +1,10 @@
 # Installation Guide
 
-Follow the steps below to set up your environment:
+Follow the steps below to set up your environment 
+
+or 
+
+Refer this detailed document with screenshots - https://anthologyinc.sharepoint.com/sites/bb-lrnctl/SitePages/Development-Environment-Setup.aspx :
 
 ### Prerequisite :
 
@@ -11,8 +15,8 @@ Create your Github account with Anthology email ID & raise necessary access for 
 
 ### Step 1 :
 1. Please follow the given 2 steps carefully inorder to avoid script failures . It will be hard to check the cause of the failure.
-2. Change the default browser to your desired one by opening "system settings-->Desktop and Dock -->Default web browser". Then it is mandatory to signin https://github.com/ with your anthology mail Id.
-3. Run the below command in your terminal
+3. Change the default browser to your desired one by opening "system settings-->Desktop and Dock -->Default web browser". Then it is mandatory to signin https://github.com/ with your anthology mail Id.
+4. Run the below command in your terminal
 
 ```bash {"id":"01J08ZGVVGPEX3SFP2YEYH21CW"}
 xcode-select --install
