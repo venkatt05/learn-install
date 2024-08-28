@@ -82,16 +82,7 @@ else
 fi
   pbcopy < ~/.ssh/id_ed25519.pub
   echo "\a \a \a \a"
-  echo -e "\e[33m*******************  Read the Below Notes Carefully*********************\e[0m"
-  echo -e "\n \e[33m 1. Your public SSH key Highlighted in Green Colour and is already copied:\e[0m" &&
-  echo -e "\n \e[32m$(cat ~/.ssh/id_ed25519.pub)\e[0m"
-  pbcopy < ~/.ssh/id_ed25519.pub
-  echo "\n 2. You can see there is a GiHub URL opened in your default browser."
-  echo "\n 3. Ignore this step if you already have the SSH Key in you GitHub Account else Press "command + v" to paste the SSH into the value box."
-  echo "\n 4. click on \e[1;32mconfigure sso\e[0m button and authorize all the projects."
-  echo -e "\n"
-  echo -e "For more details Refer: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. Proceed with the next steps once done."
-
+  echo -e "\e[33m Go Back to the document and follow Step 4 https://anthologyinc.sharepoint.com/sites/bb-lrnctl/SitePages/Development-Environment-Setup.aspx \e[0m"
 
 # Define the function to prompt the user and capture input
 prompt_continue() {
@@ -99,8 +90,11 @@ prompt_continue() {
   read continue_key
 }
 
+# Sleep for 3 minutes (180 seconds)
+sleep 180
+
 # Example usage: Prompt the user and capture input
-prompt_continue "After adding the ssh key please Press Enter to continue..."
+prompt_continue "After adding the ssh key in GitHub by following the above document please Press return to continue here..."
 
 # Check if the user pressed Enter (continue_key will be empty)
 if [ -z "$continue_key" ]; then
