@@ -146,14 +146,6 @@ fi
   # Get the current date and time
   current_datetime=$(date '+%Y-%m-%d %H:%M:%S')
 
-  echo "Date and Time: $current_datetime, Username: $username, Total duration: $total_minutes minutes"  >> total_minutes.txt
-
-  git add total_minutes.txt
-
-  # Commit the changes
-  git commit -m "Add total_minutes and username for $username"
-
-  # Push the changes to the repository
-  git push
+  echo "Date and Time: $current_datetime, Username: $username, Total duration: $total_minutes minutes"  
 
   rm ~/pre_script_duration.txt ~/main_script_duration.txt ~/install_script_duration.txt ~/total_minutes.txt

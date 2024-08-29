@@ -56,7 +56,7 @@ install_corretto() {
     return 1
   fi
   echo -e "\e[33m# Install Corretto 11\e[0m"
-  echo $password | sudo -S brew install --cask corretto@11 &&
+  brew install --cask corretto@11 &&
   if [ $? -ne 0 ]; then
     echo "Failed to install Corretto 11."
     return 1
