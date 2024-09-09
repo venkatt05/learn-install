@@ -63,7 +63,8 @@ install_Learn() {
   if [ -d learn ]; then
     cd learn &&
     echo -e "\a \a \a \a \a "
-    prompt_continue "Turn off zscalar internet Security and please Press Enter to continue..."
+    echo -e "\e[33m Go Back to the document and follow Step 6 \e[0m"
+    prompt_continue "After Turning off zscalar internet Security, please Press Enter to continue..."
     if [ -z "$continue_key" ]; then
     gdl installLearn &&
     echo -e "\e[33m Starting Learn Application... \e[0m"
