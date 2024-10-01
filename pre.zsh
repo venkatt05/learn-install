@@ -82,7 +82,7 @@ else
 fi
   pbcopy < ~/.ssh/id_ed25519.pub
   echo "\a \a \a \a"
-  echo -e "\e[33m Go Back to the document and follow Step 4 https://anthologyinc.sharepoint.com/sites/bb-lrnctl/SitePages/Development-Environment-Setup.aspx \e[0m"
+  echo -e "\e[33m Go Back to the document and follow Step 5 https://anthologyinc.sharepoint.com/sites/bb-lrnctl/SitePages/Development-Environment-Setup.aspx \e[0m"
 
 # Define the function to prompt the user and capture input
 prompt_continue() {
