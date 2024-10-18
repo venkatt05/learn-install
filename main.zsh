@@ -389,6 +389,7 @@ cloneUltraRouter() {
   # brew untap homebrew/nginx
   # brew untap denji/nginx
   brew tap openresty/brew
+  brew install geoip
   brew install openresty
 }
 
