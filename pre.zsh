@@ -90,11 +90,11 @@ prompt_continue() {
   read continue_key
 }
 
-# Sleep for 3 minutes (180 seconds)
-sleep 180
+# Sleep for 30 secs
+sleep 30
 
 # Example usage: Prompt the user and capture input
-prompt_continue "After adding the ssh key in GitHub by following the above document please Press return to continue here..."
+prompt_continue "\n \n After adding the ssh key in GitHub by following the above document please Press return to continue here..."
 
 # Check if the user pressed Enter (continue_key will be empty)
 if [ -z "$continue_key" ]; then
