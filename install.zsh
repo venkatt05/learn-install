@@ -70,6 +70,9 @@ install_Learn() {
   else
     echo -e "\e[33m There is no Learn Folder ... \e[0m"
   fi
+
+  sed -i '' 's|fetch = +refs/heads/develop:refs/remotes/origin/develop|fetch = +refs/heads/*:refs/remotes/origin/*|' /Users/$USER/work/learn/.git/config
+
 }
 
 install_ultra_router() {
